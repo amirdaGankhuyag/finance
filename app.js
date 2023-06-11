@@ -32,8 +32,8 @@ var uiController = (function(){
         for(var i=0; i < x.length; i++){
             y = y + x[i];
 
-            if( count%3 === 0 ) y = y + ',';
-            count ++;
+            if( count % 3 === 0 ) y = y + ',';
+            count++;
         }
 
         var z = y.split("").reverse().join("");
@@ -84,6 +84,7 @@ var uiController = (function(){
         getDOMstrings: function(){
             return DOMstrings;
         },
+
         clearFields: function(){
             var fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
             //Convert list to Array
@@ -103,10 +104,11 @@ var uiController = (function(){
             var type;
             if(tusuv.tusuv > 0) type = 'inc';
             else type = 'exp';
-            document.querySelector(DOMstrings.tusuvLabel).textContent = formatMoney(tusuv.tusuv, type);
-            document.querySelector(DOMstrings.incomeLebel).textContent = formatMoney(tusuv.totalInc, 'inc');
-            document.querySelector(DOMstrings.expenseLabel).textContent = formatMoney(tusuv.totalExp, 'exp');
-            if(tusuv.huvi !== 0){document.querySelector(DOMstrings.percentageLabel).textContent = tusuv.huvi + '%';
+            document.querySelector(DOMstrings.tusuvLabel).textContent = formatMoney(tusuv.tusuv, type) + ' ₮';
+            document.querySelector(DOMstrings.incomeLebel).textContent = formatMoney(tusuv.totalInc, 'inc') + ' ₮';
+            document.querySelector(DOMstrings.expenseLabel).textContent = formatMoney(tusuv.totalExp, 'exp') + ' ₮';
+            if(tusuv.huvi !== 0){
+                document.querySelector(DOMstrings.percentageLabel).textContent = tusuv.huvi + '%';
             } else {
                 document.querySelector(DOMstrings.percentageLabel).textContent = tusuv.huvi;
             }   
@@ -122,10 +124,10 @@ var uiController = (function(){
             var html, list;
             if(type === 'inc'){
                 list = DOMstrings.incomeList;
-                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';              
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$ ₮</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';              
             } else {
                 list = DOMstrings.expenseList;
-                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'; 
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$ ₮</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'; 
             }
             //2.Тэр HTML дотроо зарлагын утгуудыг REPLACE ашиглаж өөрчиж өгнө.
             html = html.replace('%id%', item.id);
@@ -325,7 +327,7 @@ var appController = (function(uiController, financeController){
 
     return {
         init: function(){
-            console.log('app started...');
+            console.log('Тооцоолуур ажиллаж эхэллээ!!');
             uiController.displayDate();
             uiController.tusviigUzuuleh({
                 tusuv: 0,
@@ -335,7 +337,6 @@ var appController = (function(uiController, financeController){
             });
             setupEventListeners();
         }
-    };
-    
+    }; 
 })(uiController, financeController);
 appController.init();
